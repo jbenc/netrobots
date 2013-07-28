@@ -309,12 +309,7 @@ int drive(struct robot *r, int degree, int speed)
 	if (r->speed > 50)
 		degree = r->degree;
 
-	if (speed != r->target_speed) {
-		/* we're already breaking to the target_speed, do not
-		 * prolong breaking */
-		r->break_distance = BREAK_DISTANCE;
-	}
-	if (speed > r->target_speed)
+	if (speed > r->speed)
 		r->speed = speed;
 	r->target_speed = speed;
 	r->degree = degree;
@@ -331,7 +326,6 @@ static void cycle_robot(struct robot *r)
 	    r->y >= 1000 + TOL || r->y <= -TOL) {
 		r->damage += 2;
 		r->speed = 0;
-		r->break_distance = 0;
 		r->target_speed = 0;
 	}
 	if (r->damage < 100) {
@@ -351,11 +345,9 @@ static void cycle_robot(struct robot *r)
 		    (int)r->y == (int)all_robots[i]->y) {
 			r->damage += 2;
 			r->speed = 0;
-			r->break_distance = 0;
 			r->target_speed = 0;
 			all_robots[i]->damage += 2;
 			all_robots[i]->speed = 0;
-			all_robots[i]->break_distance = 0;
 			all_robots[i]->target_speed = 0;
 			if (r->x > 0)
 				r->x -= 1;
@@ -371,12 +363,10 @@ static void cycle_robot(struct robot *r)
 	r->x += cos(r->degree * M_PI/180) * r->speed * SPEED_RATIO;
 	r->y += sin(r->degree * M_PI/180) * r->speed * SPEED_RATIO;
 
-	if (r->break_distance == 0)
-		r->speed = r->target_speed;
-
 	if (r->target_speed < r->speed){
-		r->speed += (r->target_speed - r->speed) / r->break_distance;
-		r->break_distance--;
+		r->speed -= DECELERATION;
+		if (r->speed < r->target_speed)
+			r->speed = r->target_speed;
 	}
 }
 

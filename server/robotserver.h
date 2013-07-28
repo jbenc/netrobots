@@ -21,7 +21,7 @@
 #include <cairo/cairo.h>
 
 #define SPEED_RATIO	0.04
-#define BREAK_DISTANCE	(0.7 / SPEED_RATIO)
+#define DECELERATION	6
 #define DEF_SHOT_SPEED	(400.0 * SPEED_RATIO)
 #define SHOT_BLAST	25
 #define SHOT_RELOAD	25	/* only in laser game */
@@ -41,7 +41,6 @@ struct robot {
 	double x, y;
 	int damage;
 	int speed;
-	int break_distance;
 	int target_speed;
 	int degree;
 	int cannon_degree;
