@@ -90,6 +90,8 @@ class Robot(object):
 				name = ''
 		if not name:
 			name = os.path.basename(sys.argv[0])
+			if name.endswith('.py'):
+				name = name[:-3]
 			if not name:
 				name = 'PyRobot'
 		else:
@@ -150,7 +152,10 @@ class Robot(object):
 		resolution. Resolution has to be <= 10. Returns distance to
 		the nearest opponent."""
 
-		return self.__custom_command_check(1, SCAN, degree, resolution)
+		resolution = int(resolution)
+		if (resolution < 0) or (resolution > 10):
+			raise ValueError('Invalid range')
+		return self.__custom_command_check(1, SCAN, int(degree), resolution)
 	
 	def cannon(self, degree, distance):
 		"""cannon(degree, distance)
@@ -158,7 +163,10 @@ class Robot(object):
 		Fires cannon in the given direction to the given distance.
 		Returns False if currently reloading."""
 
-		return bool(self.__custom_command_check(1, CANNON, degree, distance))
+		distance = int(distance)
+		if distance < 0:
+			raise ValueError('Invalid range')
+		return bool(self.__custom_command_check(1, CANNON, int(degree), distance))
 	
 	def drive(self, degree, speed):
 		"""drive(degree, speed)
@@ -168,7 +176,10 @@ class Robot(object):
 		speed < 50 and decceleration does not happen immediately. If
 		the currect speed >= 50, the direction is ignored."""
 
-		self.custom_command(DRIVE, degree, speed)
+		speed = int(speed)
+		if (speed < 0) or (speed > 100):
+			raise ValueError('Invalid range')
+		self.custom_command(DRIVE, int(degree), speed)
 	
 	def cycle(self):
 		"""cycle()
