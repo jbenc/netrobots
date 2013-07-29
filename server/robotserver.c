@@ -103,7 +103,7 @@ void complete_ranking(void)
 		fprintf(f, "****** %s", ctime(&game_start.tv_sec));
 		for (i = 0; i < max_robots; i++) {
 			r = ranking[max_robots - i - 1];
-			fprintf(f, "%d.\t%s\t%d\t%d\t%ld.%ld\n", i + 1, r->name, r->score,
+			fprintf(f, "%d.\t%s\t%d\t%d\t%ld.%ld\n", i + 1, r->orig_name, r->score,
 				r->damage, r->life_length.tv_sec, r->life_length.tv_usec);
 		}
 		fprintf(f, "\n");

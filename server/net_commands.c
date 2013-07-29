@@ -123,12 +123,11 @@ int cmd_drive(struct robot *robot, int *args)
 
 int cmd_name(struct robot *robot, char **args)
 {
-	char *name;
-
-	name = strndup(args[0], MAX_NAME_LEN);
 	if (robot->name)
 		free(robot->name);
-	robot->name = name;
+	robot->name = strndup(args[0], MAX_NAME_LEN);
+	if (!robot->orig_name)
+		robot->orig_name = strndup(args[0], MAX_NAME_LEN);
 	return 1;
 }
 

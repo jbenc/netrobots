@@ -38,6 +38,7 @@ struct cannon {
 struct robot {
 	/* int fd; Should not be needed as it is synchronized with the array of fds */
 	char *name;
+	char *orig_name;
 	double x, y;
 	int damage;
 	int speed;
