@@ -27,6 +27,7 @@ typedef enum event_t {
 	EVENT_NONE,
 	EVENT_QUIT,
 	EVENT_START,
+	EVENT_FINISH,
 } event_t;
 
 /* Functions used by main.c as a high-level interface with the toolkit.  */

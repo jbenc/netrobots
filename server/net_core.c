@@ -367,7 +367,7 @@ int server_cycle(event_t event)
 {
 	int res;
 
-	if (current_cycles >= max_cycles) {
+	if (current_cycles >= max_cycles || event == EVENT_FINISH) {
 		ndprintf(stdout, "[GAME] Ended - Draw!\n");
 		res = 1;
 	} else {

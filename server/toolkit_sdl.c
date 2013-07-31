@@ -125,6 +125,8 @@ event_t process_toolkit(cairo_t **cr)
 		case SDLK_s:
 		case SDLK_RETURN:
 			return EVENT_START;
+		case SDLK_f:
+			return EVENT_FINISH;
 		default:
 			break;
 		}

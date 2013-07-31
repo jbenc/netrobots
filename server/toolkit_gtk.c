@@ -40,6 +40,9 @@ static gboolean key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data
 	case GDK_KEY_Return:
 		last_event = EVENT_START;
 		return TRUE;
+	case GDK_KEY_f:
+		last_event = EVENT_FINISH;
+		return TRUE;
 	}
 	return FALSE;
 }
